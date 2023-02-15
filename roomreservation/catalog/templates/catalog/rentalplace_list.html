@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Rentals List</h1>
+  {% if rentalplace_list %}
+  <ul>
+    {% for rental in rentalplace_list %}
+      <li>
+        <a href="{{ rental.get_absolute_url }}">{{ rental.name }}</a> ({{rental.owner}})
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no rentals in the system.</p>
+  {% endif %}
+{% endblock %}

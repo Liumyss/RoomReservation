@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import uuid
+from django.urls import reverse
 
 # Create your models here.
 
@@ -11,6 +12,10 @@ class RentalPlace(models.Model):
     street = models.CharField(max_length=200, help_text="Enter the name of the street where the place is located")
     city = models.CharField(max_length=50, help_text="Enter the name of the city where the place is located")
     description = models.TextField(max_length=1000, help_text="Enter a brief description of the place")
+
+    def get_absolute_url(self):
+        """Returns the url to access a particular room."""
+        return reverse('rental-detail', args=[str(self.id)])
 
     def __str__(self):
         """String for representing the Model object."""

@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+    <h1>Room Reservation Website</h1>
+    <p>Welcome to RoomReservation, a website designe to help you find a room in different locations for your vacations!</p>
+    <h2>Dynamic content</h2>
+    <p>The system has the following record counts:</p>
+    <ul>
+        <li><strong>Rental Places:</strong> {{ num_rentals }}</li>
+        <li><strong>Rooms:</strong> {{ num_rooms }}</li>
+        <li><strong>Rooms available:</strong> {{ num_rooms_available }}</li>
+        <li><strong>Owners:</strong> {{ num_owners }}</li>
+    </ul>
+
+    <p>You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}.</p>
+{% endblock %}

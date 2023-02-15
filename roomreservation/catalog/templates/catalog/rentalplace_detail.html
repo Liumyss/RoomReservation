@@ -1,0 +1,27 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Name: {{ rentalplace.name }}</h1>
+
+  <p><strong>Owner:</strong> <a href="">{{ rentalplace.owner }}</a></p> 
+  <p><strong>Description:</strong> {{ rentalplace.description }}</p>
+  <p><strong>Address:</strong> {{ rentalplace.street }}, {{rentalplace.city}}</p>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Rooms</h4>
+
+    {% for r in rentalplace.room_set.all %}
+      <hr>
+      <p class="{% if r.status == 'a' %}text-success{% elif r.status == 'm' %}text-danger{% else %}text-warning{% endif %}">
+        {{ r.get_status_display }}
+      </p>
+      <p><strong>Cost:</strong> ${{ r.cost }}</p>
+      {% if r.is_premium %}
+        <div class="alert alert-primary" role="alert">
+          This room is reserved for premium members only
+        </div>
+      {% endif %}
+      <p class="text-muted"><strong>Id:</strong> {{ r.id }}</p>
+    {% endfor %}
+  </div>
+{% endblock %}
