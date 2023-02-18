@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Rooms Booked</h1>
+
+    {% if room_list %}
+    <ul>
+
+      {% for r in room_list %}
+      <li class="{% if r.is_overdue %}text-danger{% endif %}">
+        <p>{{ r.rentalplace.name }} ({{ r.due_back }})</p>
+      </li>
+      {% endfor %}
+    </ul>
+
+    {% else %}
+      <p>There are no rooms booked.</p>
+    {% endif %}
+{% endblock %}

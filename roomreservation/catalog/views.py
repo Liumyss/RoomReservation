@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import RentalPlace, Owner, Room
 
 def index(request):
@@ -40,3 +41,16 @@ class RentalListView(generic.ListView):
 class RentalDetailView(generic.DetailView):
     model = RentalPlace
     paginate_by = 10
+
+class ReservedRoomsByUserListView(LoginRequiredMixin,generic.ListView):
+    """Generic class-based view listing rooms reserved by a current user."""
+    model = Room
+    template_name = 'catalog/room_list_reserved_user.html'
+    paginate_by = 5
+
+    def get_queryset(self):
+        return (
+            Room.objects.filter(client=self.request.user)
+            .filter(status__exact='o')
+            .order_by('due_back')
+        )

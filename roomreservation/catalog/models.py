@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import uuid
 from django.urls import reverse
+from datetime import date
 
 # Create your models here.
 
@@ -31,6 +32,11 @@ class Room(models.Model):
     cost = models.IntegerField(null=True, blank=True, help_text="Enter the cost of the room for one night")
     client = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     is_premium = models.BooleanField(help_text="If the room is for premium clients")
+
+    @property
+    def is_overdue(self):
+        """Determines if the room reservation is overdue based on due date and current date."""
+        return bool(self.due_back and date.today() > self.due_back)
     
 
     RESERVATION_STATUS = (
